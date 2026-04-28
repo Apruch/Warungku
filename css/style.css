@@ -194,7 +194,7 @@ input.inp:focus{outline:2px solid var(--blue);}
 .fab {
   position: fixed; /* Gunakan fixed agar tetap di posisi yang sama saat scroll */
   bottom: 278px;    /* Sesuaikan jarak dari bawah layar */
-  left: 57%;
+  left: 63%;
   transform: translateX(-50%); /* Menarik tombol ke tengah sempurna */
   
   width: 60px;
