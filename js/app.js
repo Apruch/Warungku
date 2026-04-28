@@ -1081,9 +1081,37 @@ function simpanTutupToko(){
 }
 
 // ── MITRA ───────────────────────────────────────────────────────
+var _hariIniClickCount=0;
 function setDay(el,hari){
+  var isHariIni=(hari==='Hari Ini');
+  if(isHariIni){
+    // Kalau pindah dari hari lain ke Hari Ini, reset counter
+    if(!el.classList.contains('on')) _hariIniClickCount=0;
+    _hariIniClickCount++;
+    // Setiap kelipatan 3: ganti mode
+    if(_hariIniClickCount%3===0){
+      var newFilter=(DB.mitraFilterHari==='Semua')?'Hari Ini':'Semua';
+      DB.mitraFilterHari=newFilter;
+      el.textContent=(newFilter==='Semua')?'Semua':'Hari Ini';
+      document.querySelectorAll('#day-chips .dchip').forEach(function(c){c.classList.remove('on');});
+      el.classList.add('on');
+      renderMitra();
+      return;
+    }
+    // Klik biasa, pastikan aktif
+    document.querySelectorAll('#day-chips .dchip').forEach(function(c){c.classList.remove('on');});
+    el.classList.add('on');
+    DB.mitraFilterHari='Hari Ini';
+    el.textContent='Hari Ini';
+    renderMitra();
+    return;
+  }
+  // Pindah ke hari lain: reset counter & reset teks tombol Hari Ini
+  _hariIniClickCount=0;
+  var btnHariIni=document.querySelector('#day-chips .dchip:first-child');
+  if(btnHariIni) btnHariIni.textContent='Hari Ini';
   document.querySelectorAll('#day-chips .dchip').forEach(function(c){c.classList.remove('on');});
-  el.classList.add('on'); DB.mitraFilterHari=hari||'Hari Ini'; renderMitra();
+  el.classList.add('on'); DB.mitraFilterHari=hari; renderMitra();
 }
 
 function renderMitra(){
