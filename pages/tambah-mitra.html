@@ -1,0 +1,33 @@
+<div class="page page-solo" id="pg-tambah-mitra">
+  <div class="form-page-top"></div>
+  <div class="form-card">
+    <div class="form-title">Tambah Mitra</div>
+    <div class="form-divider"></div>
+    <label class="form-label">Nama Toko / Perusahaan</label>
+    <input class="form-input" id="tm-toko" type="text" placeholder="PT. Sinar Jaya...">
+    <label class="form-label">Nama Sales</label>
+    <input class="form-input" id="tm-sales" type="text" placeholder="Nama lengkap sales...">
+    <label class="form-label">No. WhatsApp</label>
+    <input class="form-input" id="tm-wa" type="tel" placeholder="08xx-xxxx-xxxx">
+    <label class="form-label">Alamat</label>
+    <textarea class="form-input area" id="tm-alamat" placeholder="Alamat toko / gudang..."></textarea>
+    <div class="form-grid">
+      <div>
+        <label class="form-label">Hari Kunjungan</label>
+        <select class="form-input" id="tm-hari" style="padding:12px 10px;">
+          <option value="">Pilih Hari</option>
+          <option>Senin</option><option>Selasa</option><option>Rabu</option>
+          <option>Kamis</option><option>Jumat</option><option>Sabtu</option><option>Minggu</option>
+        </select>
+      </div>
+      <div>
+        <label class="form-label">Tgl Kedatangan</label>
+        <input class="form-input" id="tm-tgl" type="date" style="padding:12px 10px;">
+      </div>
+    </div>
+    <div class="form-btn-row">
+      <button class="btn-gray" onclick="go('pg-mitra')">Batal</button>
+      <button class="btn-green-half" onclick="simpanMitraBaru()">Simpan</button>
+    </div>
+  </div>
+</div>

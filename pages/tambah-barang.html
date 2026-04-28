@@ -1,0 +1,48 @@
+<div class="page page-solo" id="pg-tambah-barang">
+  <div class="form-page-top"></div>
+  <div class="form-card">
+    <div class="form-title">Tambah Barang Baru</div>
+    <div class="form-divider"></div>
+    <label class="form-label">Nama Barang</label>
+    <input class="form-input" id="tb-nama" type="text" placeholder="Contoh: Indomie Goreng">
+    <label class="form-label">Kode Barcode (opsional)</label>
+    <input class="form-input" id="tb-barcode" type="text" placeholder="Scan atau ketik barcode...">
+    <div class="form-grid">
+      <div>
+        <label class="form-label">Harga Jual</label>
+        <input class="form-input" id="tb-harga" type="number" placeholder="0">
+      </div>
+      <div>
+        <label class="form-label">Harga Modal</label>
+        <input class="form-input" id="tb-modal" type="number" placeholder="0">
+      </div>
+    </div>
+    <div class="form-grid">
+      <div>
+        <label class="form-label">Stok Awal</label>
+        <input class="form-input" id="tb-stok" type="number" placeholder="0">
+      </div>
+      <div>
+        <label class="form-label">Minimum Stok</label>
+        <input class="form-input" id="tb-min-stok" type="number" placeholder="5">
+      </div>
+    </div>
+    <label class="form-label">Kategori</label>
+    <select class="form-input" id="tb-kategori" style="padding:12px 14px;">
+      <option value="">Pilih kategori...</option>
+      <option>Makanan</option>
+      <option>Minuman</option>
+      <option>Rokok</option>
+      <option>Snack</option>
+      <option>Lainnya</option>
+    </select>
+    <label class="form-label">Satuan</label>
+    <input class="form-input" id="tb-satuan" type="text" placeholder="pcs / bungkus / botol...">
+    <label class="form-label">Nama Supplier (opsional)</label>
+    <input class="form-input" id="tb-supplier" type="text" placeholder="Nama toko / distributor...">
+    <div class="form-btn-row">
+      <button class="btn-gray" onclick="go('pg-katalog')">Batal</button>
+      <button class="btn-green-half" onclick="simpanBarangBaru()">Simpan</button>
+    </div>
+  </div>
+</div>

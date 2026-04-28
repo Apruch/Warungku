@@ -1,0 +1,22 @@
+<div class="page page-solo" id="pg-data-pengguna">
+  <div class="auth-top" style="padding-top:72px; padding-bottom:64px;">
+    <div class="auth-top-title">Data Pengguna</div>
+    <div class="auth-top-sub">Masukkan username dan nama warung<br>anda untuk akun barumu!</div>
+  </div>
+  <div class="auth-card">
+    <div style="margin-bottom:20px;">
+      <div class="auth-big-title">Lengkapi Profil</div>
+      <div class="auth-sub">Hampir selesai! Isi data di bawah ini.</div>
+    </div>
+    <div id="datapeng-err" style="display:none;background:#FEE2E2;color:#C0392B;border-radius:10px;padding:10px 12px;font-size:12px;margin-bottom:10px;"></div>
+    <div class="inp-wrap">
+      <span class="inp-icon"><svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg></span>
+      <input class="inp" id="dp-username" type="text" placeholder="Username unik kamu...">
+    </div>
+    <div class="inp-wrap">
+      <span class="inp-icon">🏪</span>
+      <input class="inp" id="dp-warung" type="text" placeholder="Nama warung kamu...">
+    </div>
+    <button class="btn-blue" onclick="doSignupFinish()">Selesaikan Pendaftaran</button>
+  </div>
+</div>

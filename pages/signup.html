@@ -1,0 +1,33 @@
+<div class="page page-solo" id="pg-signup">
+  <div class="auth-top tall" style="padding-top:80px; padding-bottom:64px;">
+    <div class="auth-logo-big">Warung<em>Ku!</em></div>
+    <div class="auth-top-tagline">Asisten Terbaik Warung Anda!</div>
+  </div>
+  <div class="auth-card">
+    <div class="auth-link-row">
+      <div>
+        <div class="auth-big-title">Daftar</div>
+        <div class="auth-sub">Buat akun WarungKu baru.</div>
+      </div>
+      <span class="lnk" onclick="go('pg-login')">Login</span>
+    </div>
+    <div id="signup-err" style="display:none;background:#FEE2E2;color:#C0392B;border-radius:10px;padding:10px 12px;font-size:12px;margin-bottom:10px;"></div>
+    <div class="inp-wrap">
+      <span class="inp-icon"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></span>
+      <input class="inp" id="signup-email" type="email" placeholder="Email...">
+    </div>
+    <div class="inp-wrap">
+      <span class="inp-icon"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.8-2.2-5-5-5S7 3.2 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.7 1.4-3.1 3.1-3.1 1.7 0 3.1 1.4 3.1 3.1v2z"/></svg></span>
+      <input class="inp" id="signup-password" type="password" placeholder="Password...">
+    </div>
+    <div class="inp-wrap">
+      <span class="inp-icon"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.8-2.2-5-5-5S7 3.2 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.7 1.4-3.1 3.1-3.1 1.7 0 3.1 1.4 3.1 3.1v2z"/></svg></span>
+      <input class="inp" id="signup-konfirmasi" type="password" placeholder="Konfirmasi Password...">
+    </div>
+    <button class="btn-blue" onclick="doSignupStep1()">Lanjut</button>
+    <div style="text-align:center;margin-top:20px;">
+      <span style="font-size:12px;color:#aaa;">Sudah punya akun? </span>
+      <span class="lnk" onclick="go('pg-login')">Login</span>
+    </div>
+  </div>
+</div>

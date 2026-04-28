@@ -1,0 +1,18 @@
+<div class="page page-solo" id="pg-barang-masuk">
+  <div class="form-page-top"></div>
+  <div class="form-card">
+    <div class="form-title">Barang Masuk</div>
+    <div class="form-divider"></div>
+    <label class="form-label">Nama Barang</label>
+    <div id="bm-nama" style="background:var(--gray-input);border-radius:10px;padding:13px 14px;font-size:13.5px;font-weight:600;color:var(--text-mid);margin-bottom:4px;">—</div>
+    <div style="font-size:12px;color:var(--text-light);margin-bottom:14px;" id="bm-stok-now">Stok saat ini: —</div>
+    <label class="form-label">Jumlah Masuk</label>
+    <input class="form-input" id="bm-jumlah" type="number" min="1" placeholder="0">
+    <label class="form-label">Keterangan</label>
+    <input class="form-input" id="bm-ket" type="text" placeholder="Barang masuk dari supplier...">
+    <div class="form-btn-row">
+      <button class="btn-gray" onclick="go('pg-katalog')">Batal</button>
+      <button class="btn-green-half" onclick="simpanBarangMasuk()">Catat Masuk</button>
+    </div>
+  </div>
+</div>

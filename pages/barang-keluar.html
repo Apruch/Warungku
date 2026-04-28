@@ -1,0 +1,28 @@
+<div class="page page-solo" id="pg-barang-keluar">
+  <div class="form-page-top"></div>
+  <div class="form-card">
+    <div class="form-title">Barang Keluar</div>
+    <div class="form-divider"></div>
+    <label class="form-label">Nama Barang</label>
+    <div id="bk-nama" style="background:var(--gray-input);border-radius:10px;padding:13px 14px;font-size:13.5px;font-weight:600;color:var(--text-mid);margin-bottom:4px;">—</div>
+    <div style="font-size:12px;color:var(--text-light);margin-bottom:14px;" id="bk-stok-now">Stok saat ini: —</div>
+    <label class="form-label">Alasan Keluar</label>
+    <select class="form-input" id="bk-alasan" style="padding:12px 14px;">
+      <option value="">Pilih alasan...</option>
+      <option>Rusak / Penyok</option>
+      <option>Kadaluarsa</option>
+      <option>Dimakan Tikus / Hama</option>
+      <option>Retur ke Supplier</option>
+      <option>Hilang / Tercecer</option>
+      <option>Lainnya</option>
+    </select>
+    <label class="form-label">Jumlah</label>
+    <input class="form-input" id="bk-jumlah" type="number" min="1" placeholder="0">
+    <label class="form-label">Catatan (opsional)</label>
+    <input class="form-input" id="bk-catatan" type="text" placeholder="Keterangan tambahan...">
+    <div class="form-btn-row">
+      <button class="btn-gray" onclick="go('pg-katalog')">Batal</button>
+      <button class="btn-red-half" onclick="simpanBarangKeluar()">Catat Keluar</button>
+    </div>
+  </div>
+</div>

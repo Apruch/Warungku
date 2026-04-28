@@ -1,0 +1,37 @@
+<div class="page" id="pg-tutup-toko">
+  <div class="tt-header">
+    <div class="tt-hdr-top">
+      <div>
+        <div class="tt-title">Tutup Toko</div>
+        <div class="tt-date" id="tt-date-label">—</div>
+      </div>
+      <span class="wh-lnk" onclick="go('pg-laporan')">← Kembali</span>
+    </div>
+    <div class="tt-summary">
+      <div class="tt-sum-item">
+        <div class="tt-sum-label">ESTIMASI PENDAPATAN</div>
+        <div class="tt-sum-val" id="tt-total-pendapatan">Rp 0</div>
+      </div>
+      <div class="tt-sum-item">
+        <div class="tt-sum-label">JENIS TERJUAL</div>
+        <div class="tt-sum-val" id="tt-total-jenis">0 jenis</div>
+      </div>
+    </div>
+  </div>
+  <div class="page-scroll">
+    <div class="tt-body">
+      <div class="tt-info-box">
+        <div class="tt-info-icon">💡</div>
+        <div class="tt-info-text">
+          <strong>Cara pakai halaman ini</strong>
+          Ketuk kotak angka, lalu masukkan sisa barang yang masih ada di rak. Stok &amp; pendapatan dihitung otomatis saat disimpan.
+        </div>
+      </div>
+      <div class="tt-sec-lbl">Masukkan Sisa Stok di Rak</div>
+      <div id="tt-items-container"></div>
+    </div>
+  </div>
+  <div class="tt-footer">
+    <button class="tt-btn-simpan" onclick="simpanTutupToko()">Simpan &amp; Selesaikan Hari Ini</button>
+  </div>
+</div>
