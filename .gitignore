@@ -10,5 +10,17 @@ gradle/
 *.aab
 *.idsig
 
+build.gradle
+capacitor.config.json
+gradle.properties
+gradlew
+gradlew.bat
+manifest-checksum.txt
+package-lock.json
+package.json
+settings.gradle
+store_icon.png
+twa-manifest.json
+
 # KUNCI RAHASIA APLIKASI (SANGAT PENTING DIBLOKIR!)
 android.keystore
