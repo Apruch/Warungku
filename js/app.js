@@ -130,7 +130,8 @@ function doLogout(){
 // ── LUPA SANDI ──────────────────────────────────────────────────
 var _lupaTarget = null; // username akun yang sedang direset
 
-function resetLupaSandiForm(){
+function bukaLupaSandi(){
+  // Reset semua step ke awal
   _lupaTarget = null;
   var u = document.getElementById('lupa-username');
   var nw = document.getElementById('lupa-namawarung');
@@ -145,10 +146,6 @@ function resetLupaSandiForm(){
     if(el){ el.style.display='none'; el.textContent=''; }
   });
   _lupaTampilStep(1);
-}
-
-function bukaLupaSandi(){
-  resetLupaSandiForm();
   go('pg-lupa-sandi');
 }
 
@@ -309,7 +306,7 @@ function go(pageId){
   if(pageId==='pg-pengaturan')    renderPengaturan();
   if(pageId==='pg-ganti-nama')    renderGantiNama();
   if(pageId==='pg-ganti-warung')  renderGantiWarung();
-  if(pageId==='pg-lupa-sandi')    bukaLupaSandi();
+  if(pageId==='pg-lupa-sandi')    resetLupaSandiForm();
 }
 
 
@@ -859,7 +856,7 @@ function konfirmasiHapusBarang(){
 // ── INFO BARANG ─────────────────────────────────────────────────
 function renderInfoBarang(){
   var b=DB.getById(DB.selectedId); if(!b) return;
-  var hdr=document.getElementById('info-barang-detail');
+  var hdr=document.getElementById('info-barang-header');
   var mut=document.getElementById('info-mutasi-list');
   if(hdr){
     var tj=b.mutasi.filter(function(m){return m.ket.indexOf('Terjual')>=0;}).reduce(function(s,m){return s+Math.abs(m.jml);},0);

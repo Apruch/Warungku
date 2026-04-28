@@ -4,7 +4,7 @@
 // Base path: /Warungku/
 // ═══════════════════════════════════════════════════════
 
-const CACHE_NAME = 'warungku-v5';
+const CACHE_NAME = 'warungku-v7';
 const BASE = '/Warungku/';
 
 // Semua file yang akan di-cache untuk akses offline

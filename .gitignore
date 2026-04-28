@@ -1,0 +1,14 @@
+# Folder hasil download mesin
+node_modules/
+
+# Folder & File hasil build APK Android (Bubblewrap)
+app/
+build/
+gradle/
+.gradle/
+*.apk
+*.aab
+*.idsig
+
+# KUNCI RAHASIA APLIKASI (SANGAT PENTING DIBLOKIR!)
+android.keystore

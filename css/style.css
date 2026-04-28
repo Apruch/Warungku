@@ -1,6 +1,6 @@
 *{margin:0;padding:0;box-sizing:border-box;}
 :root{
-  --blue:#6472F3;--blue-dark:#4A5AE0;--blue-bg:#6B79F5;
+  --blue:#567EEC;--blue-dark:#567EEC;--blue-bg:#567EEC;
   --green:#2ECC71;--green-dark:#27AE60;--orange:#F5A623;
   --red:#E74C3C;--red-btn:#F05D3C;--gray-bg:#EEEEF5;
   --gray-input:#EBEBEB;--text:#1A1A2E;--text-mid:#555;
@@ -10,7 +10,7 @@ html,body{height:100%;}
 body{font-family:'Poppins',sans-serif;background:#BFC3E0;display:flex;justify-content:center;align-items:flex-start;min-height:100vh;padding:24px 16px;overflow-x:hidden;}
 
 /* ── PHONE SHELL ── */
-.phone{width:390px;height:844px;border-radius:50px;overflow:hidden;position:relative;box-shadow:0 28px 70px rgba(0,0,0,.4),0 0 0 10px #1c1c2e;flex-shrink:0;}
+.phone{width:390px;height:844px;border-radius:0;overflow:hidden;position:relative;box-shadow:none;flex-shrink:0;}
 .screen{width:100%;height:100%;position:relative;overflow:hidden;background:var(--blue-bg);}
 
 /* ── PAGES ── */
@@ -110,7 +110,7 @@ input.inp:focus{outline:2px solid var(--blue);}
 .ni svg{width:22px;height:22px;fill:currentColor;}
 .ni.on{color:var(--blue);}
 .ni-scan{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;margin-top:-28px;}
-.ni-scan-btn{width:58px;height:58px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(91,108,242,.5);border:4px solid #fff;}
+.ni-scan-btn{width:58px;height:58px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(86,126,236,.5);border:4px solid #fff;}
 .ni-scan-btn svg{width:26px;height:26px;fill:#fff;}
 .ni-scan span{font-size:11px;color:var(--text-light);}
 
@@ -193,8 +193,8 @@ input.inp:focus{outline:2px solid var(--blue);}
 .kat-more{color:var(--text-light);font-size:20px;cursor:pointer;padding:4px;flex-shrink:0;}
 .fab {
   position: fixed; /* Gunakan fixed agar tetap di posisi yang sama saat scroll */
-  bottom: 218px;    /* Sesuaikan jarak dari bawah layar */
-  left: 66%;
+  bottom: 278px;    /* Sesuaikan jarak dari bawah layar */
+  left: 57%;
   transform: translateX(-50%); /* Menarik tombol ke tengah sempurna */
   
   width: 60px;
