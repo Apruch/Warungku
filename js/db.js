@@ -10,23 +10,23 @@ var LS_KEY_DB   = 'warungku_sqlite_v2';
 // ── Data terpusat in-memory ─────────────────────────────────────
 var DB = {
   barang: [
-    {id:1,  nama:'Mie Instan Goreng',           emoji:'🍜', harga:3500,  stok:24,  stokMin:10, unit:'pcs', kategori:'Makanan',   exp:'20 Jun 26', supplier:'PT Grosir Nusantara', barcode:'089686012345', mutasi:[]},
-    {id:2,  nama:'Kopi Sachet Tubruk',           emoji:'☕', harga:1500,  stok:95,  stokMin:20, unit:'pcs', kategori:'Minuman',   exp:'10 Des 26', supplier:'PT Sembako Sari',     barcode:'',             mutasi:[]},
-    {id:3,  nama:'Gula Pasir 1kg',               emoji:'🧂', harga:15000, stok:25,  stokMin:5,  unit:'kg',  kategori:'Makanan',   exp:'01 Jan 27', supplier:'PT Sembako Sari',     barcode:'',             mutasi:[]},
-    {id:4,  nama:'Minyak Goreng 1L',             emoji:'🫙', harga:18000, stok:18,  stokMin:6,  unit:'btl', kategori:'Makanan',   exp:'18 Apr 28', supplier:'PT Grosir Nusantara', barcode:'',             mutasi:[]},
-    {id:5,  nama:'Sabun Colek 500gr',            emoji:'🧼', harga:8500,  stok:10,  stokMin:3,  unit:'pcs', kategori:'Kebutuhan', exp:'05 Mar 27', supplier:'PT Sinar Sari',       barcode:'',             mutasi:[]},
-    {id:6,  nama:'Teh Celup Sariwangi',          emoji:'🍵', harga:800,   stok:130, stokMin:30, unit:'pcs', kategori:'Minuman',   exp:'15 Nov 26', supplier:'PT Sembako Sari',     barcode:'',             mutasi:[]},
-    {id:7,  nama:'Rokok Surya 16',               emoji:'🚬', harga:24000, stok:12,  stokMin:4,  unit:'bks', kategori:'Lainnya',   exp:'—',         supplier:'PT Grosir Nusantara', barcode:'',             mutasi:[]},
-    {id:8,  nama:'Bimoli Minyak Goreng 1L',      emoji:'🧴', harga:20000, stok:4,   stokMin:5,  unit:'pcs', kategori:'Makanan',   exp:'13 Apr 28', supplier:'PT Sembako Sari',     barcode:'',             mutasi:[
+    {id:1,  nama:'Mie Instan Goreng',           emoji:'🍜', harga:3500,  stok:24,  stokMin:10, unit:'pcs', kategori:'Makanan',   exp:'20 Jun 26', supplier:'PT Grosir Nusantara', barcode:['089686012345'], mutasi:[]},
+    {id:2,  nama:'Kopi Sachet Tubruk',           emoji:'☕', harga:1500,  stok:95,  stokMin:20, unit:'pcs', kategori:'Minuman',   exp:'10 Des 26', supplier:'PT Sembako Sari',     barcode:[],             mutasi:[]},
+    {id:3,  nama:'Gula Pasir 1kg',               emoji:'🧂', harga:15000, stok:25,  stokMin:5,  unit:'kg',  kategori:'Makanan',   exp:'01 Jan 27', supplier:'PT Sembako Sari',     barcode:[],             mutasi:[]},
+    {id:4,  nama:'Minyak Goreng 1L',             emoji:'🫙', harga:18000, stok:18,  stokMin:6,  unit:'btl', kategori:'Makanan',   exp:'18 Apr 28', supplier:'PT Grosir Nusantara', barcode:[],             mutasi:[]},
+    {id:5,  nama:'Sabun Colek 500gr',            emoji:'🧼', harga:8500,  stok:10,  stokMin:3,  unit:'pcs', kategori:'Kebutuhan', exp:'05 Mar 27', supplier:'PT Sinar Sari',       barcode:[],             mutasi:[]},
+    {id:6,  nama:'Teh Celup Sariwangi',          emoji:'🍵', harga:800,   stok:130, stokMin:30, unit:'pcs', kategori:'Minuman',   exp:'15 Nov 26', supplier:'PT Sembako Sari',     barcode:[],             mutasi:[]},
+    {id:7,  nama:'Rokok Surya 16',               emoji:'🚬', harga:24000, stok:12,  stokMin:4,  unit:'bks', kategori:'Lainnya',   exp:'—',         supplier:'PT Grosir Nusantara', barcode:[],             mutasi:[]},
+    {id:8,  nama:'Bimoli Minyak Goreng 1L',      emoji:'🧴', harga:20000, stok:4,   stokMin:5,  unit:'pcs', kategori:'Makanan',   exp:'13 Apr 28', supplier:'PT Sembako Sari',     barcode:[],             mutasi:[
       {tgl:'17 April',ket:'Terjual',jml:-6},{tgl:'16 April',ket:'Terjual',jml:-1},
       {tgl:'15 April',ket:'Terjual',jml:-9},{tgl:'14 April',ket:'Retur Rusak',jml:-6},
       {tgl:'12 April',ket:'Barang Masuk',jml:50}
     ]},
-    {id:9,  nama:'Tango Wafer Cokelat 99gr',     emoji:'🍫', harga:12500, stok:2,   stokMin:5,  unit:'pcs', kategori:'Makanan',   exp:'05 Jan 27', supplier:'PT Sinar Sari',       barcode:'',             mutasi:[]},
-    {id:10, nama:'Nu Yogurt Tea 250ml',          emoji:'🧃', harga:7000,  stok:18,  stokMin:5,  unit:'pcs', kategori:'Minuman',   exp:'18 Apr 28', supplier:'PT Sinar Sari',       barcode:'',             mutasi:[]},
-    {id:11, nama:'ABC Kecap Manis 620ml',        emoji:'🍶', harga:37000, stok:11,  stokMin:3,  unit:'pcs', kategori:'Makanan',   exp:'12 Apr 26', supplier:'PT Sembako Sari',     barcode:'',             mutasi:[]},
-    {id:12, nama:'Gulaku Gula Premium 1kg',      emoji:'🍬', harga:18000, stok:13,  stokMin:5,  unit:'kg',  kategori:'Makanan',   exp:'05 Mei 28', supplier:'PT Sembako Sari',     barcode:'',             mutasi:[]},
-    {id:13, nama:'Garam Meja Refina 250g',       emoji:'🧂', harga:3500,  stok:17,  stokMin:5,  unit:'pcs', kategori:'Makanan',   exp:'25 Jun 29', supplier:'PT Sinar Sari',       barcode:'',             mutasi:[]},
+    {id:9,  nama:'Tango Wafer Cokelat 99gr',     emoji:'🍫', harga:12500, stok:2,   stokMin:5,  unit:'pcs', kategori:'Makanan',   exp:'05 Jan 27', supplier:'PT Sinar Sari',       barcode:[],             mutasi:[]},
+    {id:10, nama:'Nu Yogurt Tea 250ml',          emoji:'🧃', harga:7000,  stok:18,  stokMin:5,  unit:'pcs', kategori:'Minuman',   exp:'18 Apr 28', supplier:'PT Sinar Sari',       barcode:[],             mutasi:[]},
+    {id:11, nama:'ABC Kecap Manis 620ml',        emoji:'🍶', harga:37000, stok:11,  stokMin:3,  unit:'pcs', kategori:'Makanan',   exp:'12 Apr 26', supplier:'PT Sembako Sari',     barcode:[],             mutasi:[]},
+    {id:12, nama:'Gulaku Gula Premium 1kg',      emoji:'🍬', harga:18000, stok:13,  stokMin:5,  unit:'kg',  kategori:'Makanan',   exp:'05 Mei 28', supplier:'PT Sembako Sari',     barcode:[],             mutasi:[]},
+    {id:13, nama:'Garam Meja Refina 250g',       emoji:'🧂', harga:3500,  stok:17,  stokMin:5,  unit:'pcs', kategori:'Makanan',   exp:'25 Jun 29', supplier:'PT Sinar Sari',       barcode:[],             mutasi:[]},
   ],
   supplier: [
     {id:0, toko:'PT Sembako Sari',     sales:'Andika Rahmadian', wa:'0813-7585-1155', alamat:'Jl. Pasar Baru No. 12, Jakarta Pusat',    tglKedatangan:'Rabu, 13 Apr 2026',  hariKunjungan:'Rabu'},
@@ -147,7 +147,7 @@ function initSQLite(cb){
     // Seed data
     DB.barang.forEach(function(b){
       sqlDB.run('INSERT OR IGNORE INTO BARANG VALUES(?,?,?,?,?,?,?,?,?,?)',
-        ['B'+b.id,b.barcode||'',b.nama,b.harga,b.kategori,b.stok,b.stokMin,b.unit,b.emoji,b.exp]);
+        ['B'+b.id,JSON.stringify(b.barcode||[]),b.nama,b.harga,b.kategori,b.stok,b.stokMin,b.unit,b.emoji,b.exp]);
     });
     DB.supplier.forEach(function(s){
       sqlDB.run('INSERT OR REPLACE INTO SUPPLIER VALUES(?,?,?,?,?,?,?)',
@@ -175,12 +175,12 @@ function tambahBarang(obj){
     harga:parseInt(obj.harga)||0, stok:parseInt(obj.stok)||0,
     stokMin:parseInt(obj.stokMin)||3, unit:obj.unit||'pcs',
     kategori:obj.kategori||'Lainnya', exp:obj.exp||'—',
-    supplier:obj.supplier||'—', barcode:obj.barcode||'', mutasi:[]};
+    supplier:obj.supplier||'—', barcode: Array.isArray(obj.barcode) ? obj.barcode : (obj.barcode ? [obj.barcode] : []), mutasi:[]};
   DB.barang.push(b);
   if(b.stok>0) b.mutasi.push({tgl:_tglHariIni(),ket:'Stok Awal',jml:b.stok});
   if(sqlDB){
     sqlDB.run('INSERT OR REPLACE INTO BARANG VALUES(?,?,?,?,?,?,?,?,?,?)',
-      ['B'+newId,b.barcode,b.nama,b.harga,b.kategori,b.stok,b.stokMin,b.unit,b.emoji,b.exp]);
+      ['B'+newId,JSON.stringify(b.barcode),b.nama,b.harga,b.kategori,b.stok,b.stokMin,b.unit,b.emoji,b.exp]);
     if(b.stok>0){
       sqlDB.run('INSERT INTO MUTASI_STOK(ID_Mutasi,ID_Barang,Tanggal_Mutasi,Jenis_Mutasi,Jumlah,Harga) VALUES(?,?,?,?,?,?)',
         ['M_INIT_'+newId,'B'+newId,_tglHariIni(),'Stok Awal',b.stok,b.harga]);

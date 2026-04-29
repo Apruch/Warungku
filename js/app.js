@@ -981,7 +981,7 @@ function simpanBarangBaru(){
   var kat=(document.getElementById('tb-kategori').value||'Lainnya').trim();
   var unit=(document.getElementById('tb-satuan').value||'pcs').trim()||'pcs';
   var sup=(document.getElementById('tb-supplier').value||'—').trim();
-  var barcode=(document.getElementById('tb-barcode')||{value:''}).value.trim();
+  var barcode=(document.getElementById('tb-barcode')||{value:''}).value.trim()||DB._pendingBarcode||'';
   if(!nama){showToastWK('⚠️ Nama barang wajib diisi','warn');return;}
   try{
     var b=tambahBarang({nama:nama,harga:harga,stok:stok,stokMin:min,kategori:kat,unit:unit,supplier:sup,barcode:barcode});
@@ -990,6 +990,7 @@ function simpanBarangBaru(){
       if(barcode) sqlDB.run('UPDATE BARANG SET Barcode=? WHERE ID_Barang=?',[barcode,'B'+b.id]);
     }
     saveToLocalStorage(); katalogPage=1; renderKatalog(); renderHome();
+    DB._pendingBarcode='';
     showToastWK('✅ Barang "'+nama+'" ditambahkan');
     go('pg-katalog');
   } catch(e){showToastWK('⚠️ '+e.message,'error');}
@@ -1364,13 +1365,74 @@ function onBarcodeDetected(code){
 function cariBarcode(code){
   code=(code||'').trim(); if(!code){showToastWK('Masukkan barcode dulu','warn');return;}
   var found=null;
-  DB.barang.forEach(function(b){if((b.barcode||'')===code)found=b;});
+  // Cari di array barcode tiap barang
+  DB.barang.forEach(function(b){
+    var barcodes=Array.isArray(b.barcode)?b.barcode:(b.barcode?[b.barcode]:[]);
+    if(barcodes.indexOf(code)>=0) found=b;
+  });
   if(!found&&sqlDB){
-    try{var res=sqlDB.exec('SELECT ID_Barang FROM BARANG WHERE Barcode=? LIMIT 1',[code]);
-      if(res.length&&res[0].values.length){var id=parseInt((res[0].values[0][0]||'').replace('B',''));found=DB.getById(id);}
+    try{
+      // SQLite simpan barcode sebagai JSON array string, cek pakai LIKE
+      var res=sqlDB.exec('SELECT ID_Barang,Barcode FROM BARANG');
+      if(res.length&&res[0].values.length){
+        res[0].values.forEach(function(row){
+          if(found) return;
+          try{
+            var arr=JSON.parse(row[1]||'[]');
+            if(Array.isArray(arr)&&arr.indexOf(code)>=0){
+              var id=parseInt((row[0]||'').replace('B',''));
+              found=DB.getById(id);
+            }
+          }catch(e){}
+        });
+      }
     }catch(e){}
   }
   tampilkanHasilScan(code,found);
+}
+
+// Tambahkan barcode baru ke barang yang sudah ada
+function tambahBarcodeKeBarang(barangId, kodeBarcode){
+  var b=DB.getById(barangId); if(!b) return;
+  if(!Array.isArray(b.barcode)) b.barcode=b.barcode?[b.barcode]:[];
+  if(b.barcode.indexOf(kodeBarcode)<0){
+    b.barcode.push(kodeBarcode);
+    if(sqlDB){
+      sqlDB.run('UPDATE BARANG SET Barcode=? WHERE ID_Barang=?',[JSON.stringify(b.barcode),'B'+barangId]);
+    }
+    saveToLocalStorage();
+  }
+  showToastWK('✅ Barcode disimpan ke "'+b.nama+'"');
+  tutupScanResult();
+}
+
+// Tampilkan modal pilih barang untuk pasangkan barcode
+function tampilModalPasangBarcode(kodeBarcode){
+  // Hapus modal lama kalau ada
+  var existing=document.getElementById('modal-pasang-barcode');
+  if(existing) existing.remove();
+
+  var listHtml=DB.barang.map(function(b){
+    return '<div onclick="tambahBarcodeKeBarang('+b.id+',\''+kodeBarcode+'\')" style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;cursor:pointer;background:#f7f7fb;margin-bottom:8px;">'
+      +'<span style="font-size:24px;">'+b.emoji+'</span>'
+      +'<div style="flex:1;">'
+        +'<div style="font-weight:700;font-size:13px;color:#1A1A2E;">'+b.nama+'</div>'
+        +'<div style="font-size:11px;color:#999;">Stok: '+b.stok+' '+b.unit+'</div>'
+      +'</div>'
+      +'<svg viewBox="0 0 24 24" width="18" height="18" fill="#567EEC"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>'
+    +'</div>';
+  }).join('');
+
+  var modal='<div id="modal-pasang-barcode" style="position:fixed;inset:0;z-index:999;display:flex;flex-direction:column;justify-content:flex-end;background:rgba(0,0,0,.45);">'
+    +'<div style="background:#fff;border-radius:24px 24px 0 0;padding:24px 20px 36px;max-height:75vh;display:flex;flex-direction:column;">'
+      +'<div style="font-size:15px;font-weight:700;color:#1A1A2E;margin-bottom:4px;">Pasangkan ke Barang yang Ada</div>'
+      +'<div style="font-size:12px;color:#999;margin-bottom:16px;font-family:monospace;">'+kodeBarcode+'</div>'
+      +'<div style="overflow-y:auto;flex:1;">'+listHtml+'</div>'
+      +'<button onclick="document.getElementById(\'modal-pasang-barcode\').remove()" style="margin-top:14px;width:100%;background:#f0f0f0;border:none;border-radius:12px;padding:12px;font-family:\'Poppins\',sans-serif;font-size:13px;font-weight:600;cursor:pointer;color:#555;">Batal</button>'
+    +'</div>'
+  +'</div>';
+
+  document.body.insertAdjacentHTML('beforeend', modal);
 }
 
 function tampilkanHasilScan(code,barang){
@@ -1388,9 +1450,10 @@ function tampilkanHasilScan(code,barang){
       '<button onclick="DB.selectedId='+barang.id+';stopScanner();go(\'pg-barang-masuk\')" style="background:#2ECC71;color:#fff;border:none;border-radius:14px;padding:14px;font-family:\'Poppins\',sans-serif;font-size:14px;font-weight:700;cursor:pointer;">📥 Tambah Stok Masuk</button>'+
       '<button onclick="DB.selectedId='+barang.id+';stopScanner();go(\'pg-barang-keluar\')" style="background:#E74C3C;color:#fff;border:none;border-radius:14px;padding:14px;font-family:\'Poppins\',sans-serif;font-size:14px;font-weight:700;cursor:pointer;">📤 Catat Keluar</button>';
   } else {
-    if(namaEl) namaEl.textContent='Barang tidak ditemukan di database';
+    if(namaEl) namaEl.innerHTML='<span style="color:#E74C3C;font-weight:600;">Barcode tidak dikenali</span><br><span style="font-size:11px;color:#999;">Barang belum ada di database atau beda kode</span>';
     if(actionsEl) actionsEl.innerHTML=
-      '<button onclick="stopScanner();go(\'pg-tambah-barang\')" style="background:#6472F3;color:#fff;border:none;border-radius:14px;padding:14px;font-family:\'Poppins\',sans-serif;font-size:14px;font-weight:700;cursor:pointer;">➕ Daftarkan Barang Baru</button>';
+      '<button onclick="tampilModalPasangBarcode(\''+code+'\')" style="background:#567EEC;color:#fff;border:none;border-radius:14px;padding:14px;font-family:\'Poppins\',sans-serif;font-size:14px;font-weight:700;cursor:pointer;width:100%;">🔗 Pasangkan ke Barang yang Ada</button>'+
+      '<button onclick="stopScanner();go(\'pg-tambah-barang\')" style="background:#f0f0f0;color:#1A1A2E;border:none;border-radius:14px;padding:14px;font-family:\'Poppins\',sans-serif;font-size:14px;font-weight:700;cursor:pointer;width:100%;">➕ Daftarkan Barang Baru</button>';
   }
   if(manualArea) manualArea.style.display='none';
   if(card) card.style.display='block';

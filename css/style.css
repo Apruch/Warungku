@@ -6,9 +6,25 @@
   --gray-input:#EBEBEB;--text:#1A1A2E;--text-mid:#555;
   --text-light:#999;--white:#fff;--border:#E0E0E0;
 }
-html,body{height:100%;}
-body{font-family:'Poppins',sans-serif;background:#BFC3E0;display:flex;justify-content:center;align-items:flex-start;min-height:100vh;padding:24px 16px;overflow-x:hidden;}
+html, body {
+    height: 100%;
+    margin: 0;           /* Wajib 0 agar tidak ada jarak bawaan */
+    padding: 0;          /* Wajib 0 agar tidak ada celah di atas/samping */
+    overflow: hidden;    /* Mengunci layar agar tidak bisa digeser/mantul */
+    overscroll-behavior-y: none; /* Mematikan efek tarik-refresh */
+}
 
+body {
+    font-family: 'Poppins', sans-serif;
+    /* Ganti background jadi biru biar kalaupun meleset warnanya tetap menyatu */
+    background: #567EEC; 
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    /* Lebar dan tinggi pas 100% layar HP, tidak lebih tidak kurang */
+    width: 100vw;
+    height: 100vh;
+}
 /* ── PHONE SHELL ── */
 .phone{width:390px;height:844px;border-radius:0;overflow:hidden;position:relative;box-shadow:none;flex-shrink:0;}
 .screen{width:100%;height:100%;position:relative;overflow:hidden;background:var(--blue-bg);}
@@ -19,11 +35,24 @@ body{font-family:'Poppins',sans-serif;background:#BFC3E0;display:flex;justify-co
 .page.active{display:flex;}
 
 /* Pages that scroll as one unit (auth, forms, settings) */
-.page-solo{overflow-y:auto;-webkit-overflow-scrolling:touch;}
+.page-solo{
+    overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+    /* Mematikan efek mantul saat di-scroll mentok */
+    overscroll-behavior-y: none; 
+}
 .page-solo::-webkit-scrollbar{display:none;}
 
 /* Inner scroll area for pages with fixed header + nav */
-.page-scroll{flex:1;overflow-y:auto;overflow-x:hidden;min-height:0;-webkit-overflow-scrolling:touch;}
+.page-scroll{
+    flex:1;
+    overflow-y:auto;
+    overflow-x:hidden;
+    min-height:0;
+    -webkit-overflow-scrolling:touch;
+    /* Mematikan efek mantul saat di-scroll mentok */
+    overscroll-behavior-y: none; 
+}
 .page-scroll::-webkit-scrollbar{display:none;}
 
 /* Status bar always hidden */
@@ -193,7 +222,7 @@ input.inp:focus{outline:2px solid var(--blue);}
 .kat-more{color:var(--text-light);font-size:20px;cursor:pointer;padding:4px;flex-shrink:0;}
 .fab {
   position: fixed; 
-  bottom: 90px; /* Jarak pas di atas menu navigasi bawah */
+  bottom: 95px; /* Jarak pas di atas menu navigasi bawah */
   right: 20px;  /* Dikunci sejajar di pojok kanan layar */
   
   width: 60px;
@@ -260,7 +289,7 @@ input.inp:focus{outline:2px solid var(--blue);}
 .detail-close{position:absolute;top:18px;right:18px;color:#fff;font-size:20px;cursor:pointer;background:rgba(255,255,255,.2);border:none;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
 .detail-img-box{background:#fff;border-radius:18px;padding:16px;margin:0 auto;width:200px;height:200px;display:flex;align-items:center;justify-content:center;position:relative;font-size:80px;}
 .detail-edit-img{position:absolute;bottom:8px;right:8px;width:30px;height:30px;background:var(--gray-input);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer;border:none;}
-.detail-body{background:#fff;border-radius:22px 22px 0 0;margin-top:-16px;padding:22px 22px 24px;flex:1;overflow-y:auto;scrollbar-width:none;}
+.detail-body{background:#fff;border-radius:22px 22px 0 0;margin-top:-16px;padding:22px 22px 80px;flex:1;min-height:calc(100% - 184px);overflow-y:auto;scrollbar-width:none;}
 .detail-body::-webkit-scrollbar{display:none;}
 .detail-name-row{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;}
 .detail-name{font-size:22px;font-weight:800;color:var(--text);line-height:1.2;flex:1;}
