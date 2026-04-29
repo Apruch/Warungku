@@ -59,11 +59,20 @@ body {
 .sb{display:none!important;}
 
 /* ── SPLASH ── */
-#pg-splash{background:var(--blue-bg);justify-content:center;align-items:center;}
-.splash-logo{color:#fff;font-size:44px;font-weight:800;}
-.splash-logo em{font-family:'Dancing Script',cursive;font-style:normal;}
-.splash-tag{color:rgba(255,255,255,.85);font-size:14px;margin-top:6px;}
+/* Pastikan warna background sama persis dengan manifest (#567EEC) */
+#pg-splash {
+    background: #567EEC; 
+    justify-content: center; 
+    align-items: center;
+}
 
+/* Sembunyikan teks logo dan tagline agar tidak bertumpuk dengan Splash Android */
+.splash-logo {
+    display: none; 
+}
+.splash-tag {
+    display: none; 
+}
 /* ── AUTH TOP ── */
 .auth-top{background:var(--blue-bg);padding:72px 28px 72px;text-align:center;flex-shrink:0;}
 .auth-top.tall{padding-top:72px;padding-bottom:64px;}
