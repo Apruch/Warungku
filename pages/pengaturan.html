@@ -14,6 +14,12 @@
         <input class="set-input" id="set-warung" type="text" readonly>
         <div class="set-ganti" onclick="go('pg-ganti-warung')">Ganti Nama Warung →</div>
       </div>
+       <div class="set-div"></div>
+      <div class="set-field">
+        <label class="set-label">Target Pendapatan Mingguan</label>
+        <input class="set-input" id="set-target" type="number" placeholder="5000000"
+          onchange="simpanTarget(this.value)">
+      </div>
       </div>
     <button class="btn-red-full" style="margin-top:24px;" onclick="doLogout()">Keluar </button>
   </div>
