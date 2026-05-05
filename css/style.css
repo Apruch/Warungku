@@ -213,6 +213,7 @@ input.inp:focus{outline:2px solid var(--blue);}
 .stok-bar-field small{font-size:12px;color:var(--green);}
 
 /* ── KATALOG ── */
+
 .pgn{display:flex;align-items:center;gap:6px;margin-bottom:14px;justify-content:center;}
 .pgn-btn{min-width:32px;height:32px;border-radius:8px;background:#fff;border:2px solid var(--blue);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--blue);cursor:pointer;padding:0 6px;}
 .pgn-btn.active{background:var(--blue);color:#fff;}
@@ -231,22 +232,21 @@ input.inp:focus{outline:2px solid var(--blue);}
 .kat-more{color:var(--text-light);font-size:20px;cursor:pointer;padding:4px;flex-shrink:0;}
 .fab {
   position: fixed; 
-  bottom: 95px; /* Jarak pas di atas menu navigasi bawah */
-  right: 20px;  /* Dikunci sejajar di pojok kanan layar */
-  
+  bottom: 95px; 
+  right: 20px;  
   width: 60px;
   height: 60px;
-  background-color: var(--green-dark);
+  /* Ganti ke biru agar kontras dengan kartu mitra hijau */
+  background-color: var(--blue); 
   color: white;
   border-radius: 50%;
   border: none;
   font-size: 32px;
   font-weight: bold;
-  
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Shadow sedikit dipertegas */
   z-index: 999; 
   cursor: pointer;
 }
@@ -354,7 +354,18 @@ input.inp:focus{outline:2px solid var(--blue);}
 
 /* ── FORM PAGES ── */
 .form-page-top{background:var(--blue-bg);height:110px;flex-shrink:0;}
-.form-card{background:#fff;border-radius:22px 22px 0 0;margin-top:-20px;padding:24px 22px 36px;flex:1;overflow-y:auto;scrollbar-width:none;}
+.form-card {
+  background: #fff;
+  border-radius: 22px 22px 0 0;
+  margin-top: -40px;
+  padding: 24px 22px 36px;
+  flex: 1;            /* Menarik background putih sampai ke dasar layar */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;   /* Mematikan scroll agar tetap fixed */
+  scrollbar-width: none;
+}
+
 .form-card::-webkit-scrollbar{display:none;}
 .form-title{font-size:18px;font-weight:700;color:var(--text);text-align:center;margin-bottom:6px;}
 .form-divider{height:1.5px;background:#eee;margin-bottom:20px;}
@@ -495,13 +506,47 @@ input.inp:focus{outline:2px solid var(--blue);}
 .mitra-card-v2-phone{color:rgba(255,255,255,.9);font-size:12.5px;margin-top:2px;}
 .mitra-card-v2-note{color:rgba(255,255,255,.75);font-size:11.5px;margin-top:3px;font-style:italic;}
 .mitra-card-v2-acts{display:flex;}
-.mitra-card-v2-act{flex:1;padding:14px;border:none;font-family:'Poppins',sans-serif;font-size:13.5px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:opacity .15s;}
+/* Aturan umum untuk kedua tombol */
+.mitra-card-v2-act {
+  flex: 1;
+  padding: 14px;
+  border: none;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: opacity .15s;
+  /* Menambahkan border atas agar terpisah dari area profil hijau */
+  border-top: 1.5px solid #E0E0E0;
+}
 .mitra-card-v2-act:hover{opacity:.88;}
-.mitra-card-v2-act.tel{background:#fff;color:#E74C3C;}
-.mitra-card-v2-act.wa{background:var(--green);color:#fff;}
+/* Khusus Tombol Telepon */
+.mitra-card-v2-act.tel {
+  background: #fff;
+  color: #E74C3C;
+  /* Garis pinggir kiri dan bawah untuk menyatukan dengan frame luar */
+  border-left: 1.5px solid #E0E0E0;
+  border-bottom: 1.5px solid #E0E0E0;
+  /* Garis pembatas tengah antara Telepon dan WA */
+  border-right: 1px solid #E0E0E0;
+}
+/* Khusus Tombol WhatsApp */
+.mitra-card-v2-act.wa {
+  background: var(--green);
+  color: #fff;
+  /* Garis pinggir kanan dan bawah */
+  border-right: 1.5px solid #E0E0E0;
+  border-bottom: 1.5px solid #E0E0E0;
+}
 .mitra-card-v2-act.tel svg{fill:#E74C3C;}
 .mitra-card-v2-act.wa svg{fill:#fff;}
 .mitra-card-v2-act svg{width:16px;height:16px;}
 .mitra-empty{text-align:center;padding:48px 20px;color:var(--text-light);font-size:13px;}
 .mitra-empty-icon{font-size:48px;margin-bottom:12px;}
 .mitra-empty-title{font-size:15px;font-weight:700;color:var(--text-mid);margin-bottom:6px;}
+
+
