@@ -7,37 +7,31 @@
 
     <div class="f-section">Kategori</div>
     <div class="f-group">
-      <div class="f-options" id="filter-kategori-opts">
-        <button class="f-opt on" onclick="toggleFilter(this,'kat','Semua')">Semua</button>
-        <button class="f-opt" onclick="toggleFilter(this,'kat','Makanan')">Makanan</button>
-        <button class="f-opt" onclick="toggleFilter(this,'kat','Minuman')">Minuman</button>
-        <button class="f-opt" onclick="toggleFilter(this,'kat','Rokok')">Rokok</button>
-        <button class="f-opt" onclick="toggleFilter(this,'kat','Snack')">Snack</button>
-        <button class="f-opt" onclick="toggleFilter(this,'kat','Lainnya')">Lainnya</button>
+      <div class="f-options" id="filter-kategori">
+        <button class="f-opt" onclick="toggleFOpt(this)">Makanan</button>
+        <button class="f-opt" onclick="toggleFOpt(this)">Minuman</button>
+        <button class="f-opt" onclick="toggleFOpt(this)">Rokok</button>
+        <button class="f-opt" onclick="toggleFOpt(this)">Snack</button>
       </div>
     </div>
 
     <div class="f-section">Status Stok</div>
     <div class="f-group">
-      <div class="f-options">
-        <button class="f-opt on" onclick="toggleFilter(this,'stok','Semua')">Semua</button>
-        <button class="f-opt" onclick="toggleFilter(this,'stok','Aman')">Aman</button>
-        <button class="f-opt" onclick="toggleFilter(this,'stok','Menipis')">Menipis</button>
-        <button class="f-opt" onclick="toggleFilter(this,'stok','Habis')">Habis</button>
+      <div class="f-options" id="filter-stok">
+        <button class="f-opt" onclick="selectFOpt(this,'filter-stok')">Terbanyak</button>
+        <button class="f-opt" onclick="selectFOpt(this,'filter-stok')">Tersedikit</button>
       </div>
     </div>
 
-    <div class="f-section">Urutkan</div>
+    <div class="f-section">Urutkan Harga</div>
     <div class="f-group">
-      <div class="f-options">
-        <button class="f-opt on" onclick="toggleFilter(this,'sort','Nama A-Z')">Nama A-Z</button>
-        <button class="f-opt" onclick="toggleFilter(this,'sort','Stok Terbanyak')">Stok Terbanyak</button>
-        <button class="f-opt" onclick="toggleFilter(this,'sort','Harga Terendah')">Harga Terendah</button>
-        <button class="f-opt" onclick="toggleFilter(this,'sort','Harga Tertinggi')">Harga Tertinggi</button>
+      <div class="f-options" id="filter-harga">
+        <button class="f-opt" onclick="selectFOpt(this,'filter-harga')">Termahal</button>
+        <button class="f-opt" onclick="selectFOpt(this,'filter-harga')">Termurah</button>
       </div>
     </div>
 
-    <button class="btn-blue" onclick="applyFilters()">Terapkan Filter</button>
-    <button style="background:var(--gray-input);color:var(--text);border:none;border-radius:14px;padding:14px;width:100%;font-family:'Poppins',sans-serif;font-size:14px;font-weight:600;cursor:pointer;margin-top:10px;" onclick="resetFilters()">Reset</button>
+    <button class="btn-blue" onclick="applyFilter()">Terapkan Filter</button>
+    <button style="background:var(--gray-input);color:var(--text);border:none;border-radius:14px;padding:14px;width:100%;font-family:'Poppins',sans-serif;font-size:14px;font-weight:600;cursor:pointer;margin-top:10px;" onclick="resetFilter()">Reset</button>
   </div>
 </div>

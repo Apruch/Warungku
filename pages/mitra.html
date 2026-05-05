@@ -1,49 +1,50 @@
 <div class="page" id="pg-mitra">
 
- <div class="page-scroll">
-  <div class="pg-hdr" style="position: relative; background-color: var(--blue); padding-top: 50px; padding-bottom: 40px;">
-      <h2 style="color: white; margin-left: 16px;">Sales & Mitra</h2>
-      
-      <div class="search-wrap" style="margin-top: 15px; padding: 0 2px;">
-        <div class="srch-inner">
-          <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-          <input class="srch-input" id="mitra-search" placeholder="Cari Barang..." oninput="renderMitra()">
+  <!-- 1. HEADER (FIXED DI ATAS) -->
+  <div class="pg-hdr" style="position: relative; background-color: var(--blue); padding-top: 50px; padding-bottom: 40px; flex-shrink: 0;">
+    <h2 style="color: white; margin-left: 16px;">Sales & Mitra</h2>
+    
+    <div class="search-wrap" style="margin-top: 15px; padding: 0 2px;">
+      <div class="srch-inner">
+        <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+        <input class="srch-input" id="mitra-search" placeholder="Cari Barang..." oninput="renderMitra()">
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. BODY LIST (BACKGROUND FULL & KUNCI SCROLL) -->
+  <!-- Perhatikan overflow: hidden; di bawah ini -->
+  <div class="list-body" style="position: relative; z-index: 2; background-color: #f4f5f7; border-radius: 22px 22px 0 0; margin-top: -20px; padding-top: 25px; padding-left: 16px; padding-right: 16px; flex: 1; overflow: hidden; padding-bottom: 120px;">
+
+    <!-- Kotak Filter Hari -->
+    <div style="background-color: #ffffff; padding: 16px; border-radius: 20px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+      <div class="day-chips" id="day-chips" style="display: flex; flex-direction: column; gap: 12px;">
+        
+        <button class="dchip on" onclick="setDay(this,'Hari Ini')" style="width: 100%; padding: 12px 0; border-radius: 12px; font-weight: 600; font-size: 14px; text-align: center;">Hari Ini</button>
+        <div style="height: 1px; background-color: #f0f2f5; margin: 2px 0;"></div>
+
+        <div style="display: flex; gap: 3px; justify-content: space-between; width: 100%; padding-bottom: 4px;">
+          <button class="dchip" onclick="setDay(this,'Senin')" style="flex: 1; padding: 8px 0; border-radius: 10px; font-size: 11px; font-weight: 600; border: none; text-align: center;">Senin</button>
+          <button class="dchip" onclick="setDay(this,'Selasa')" style="flex: 1; padding: 8px 0; border-radius: 10px; font-size: 11px; font-weight: 600; border: none; text-align: center;">Selasa</button>
+          <button class="dchip" onclick="setDay(this,'Rabu')" style="flex: 1; padding: 8px 0; border-radius: 10px; font-size: 11px; font-weight: 600; border: none; text-align: center;">Rabu</button>
+          <button class="dchip" onclick="setDay(this,'Kamis')" style="flex: 1; padding: 8px 0; border-radius: 10px; font-size: 11px; font-weight: 600; border: none; text-align: center;">Kamis</button>
+          <button class="dchip" onclick="setDay(this,'Jumat')" style="flex: 1; padding: 8px 0; border-radius: 10px; font-size: 11px; font-weight: 600; border: none; text-align: center;">Jumat</button>
+          <button class="dchip" onclick="setDay(this,'Sabtu')" style="flex: 1; padding: 8px 0; border-radius: 10px; font-size: 11px; font-weight: 600; border: none; text-align: center;">Sabtu</button>
+          <button class="dchip" onclick="setDay(this,'Minggu')" style="flex: 1; padding: 8px 0; border-radius: 10px; font-size: 11px; font-weight: 600; border: none; text-align: center;">Minggu</button>
         </div>
+
       </div>
     </div>
 
-    <div class="list-body" style="position: relative; z-index: 2; background-color: #f4f5f7; border-radius: 22px 22px 0 0; margin-top: -20px; padding-top: 25px; padding-left: 16px; padding-right: 16px;">
+    <!-- Date label -->
+    <div class="mitra-date-label" id="mitra-date-lbl">Hari Ini - <span id="mitra-tanggal"></span></div>
 
-
-<div style="background-color: #ffffff; padding: 16px; border-radius: 20px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
-  
-  <div class="day-chips" id="day-chips" style="display: flex; flex-direction: column; gap: 12px;">
-    
-   <button class="dchip on" onclick="setDay(this,'Hari Ini')" style="width: 100%; padding: 12px 0; border-radius: 12px; font-weight: 600; font-size: 14px; text-align: center;">Hari Ini</button>
-    <div style="height: 1px; background-color: #f0f2f5; margin: 2px 0;"></div>
-
-  <div style="display: flex; gap: 3px; justify-content: space-between; width: 100%; padding-bottom: 4px;">
-  <button class="dchip" onclick="setDay(this,'Senin')" style="flex: 1; padding: 8px 0; border-radius: 10px; font-size: 11px; font-weight: 600; border: none; text-align: center;">Senin</button>
-  <button class="dchip" onclick="setDay(this,'Selasa')" style="flex: 1; padding: 8px 0; border-radius: 10px; font-size: 11px; font-weight: 600; border: none; text-align: center;">Selasa</button>
-  <button class="dchip" onclick="setDay(this,'Rabu')" style="flex: 1; padding: 8px 0; border-radius: 10px; font-size: 11px; font-weight: 600; border: none; text-align: center;">Rabu</button>
-  <button class="dchip" onclick="setDay(this,'Kamis')" style="flex: 1; padding: 8px 0; border-radius: 10px; font-size: 11px; font-weight: 600; border: none; text-align: center;">Kamis</button>
-  <button class="dchip" onclick="setDay(this,'Jumat')" style="flex: 1; padding: 8px 0; border-radius: 10px; font-size: 11px; font-weight: 600; border: none; text-align: center;">Jumat</button>
-  <button class="dchip" onclick="setDay(this,'Sabtu')" style="flex: 1; padding: 8px 0; border-radius: 10px; font-size: 11px; font-weight: 600; border: none; text-align: center;">Sabtu</button>
-  <button class="dchip" onclick="setDay(this,'Minggu')" style="flex: 1; padding: 8px 0; border-radius: 10px; font-size: 11px; font-weight: 600; border: none; text-align: center;">Minggu</button>
-</div>
+    <!-- Mitra list -->
+    <div id="mitra-list"></div>
 
   </div>
-</div>
 
-      <!-- Date label -->
-      <div class="mitra-date-label" id="mitra-date-lbl">Hari Ini - <span id="mitra-tanggal"></span></div>
-
-      <!-- Mitra list -->
-      <div id="mitra-list"></div>
-
-    </div>
-  </div>
-
+  <!-- 3. FAB & BOTTOM NAV -->
   <button class="fab" onclick="go('pg-tambah-mitra')">+</button>
 
   <div class="bnav">
