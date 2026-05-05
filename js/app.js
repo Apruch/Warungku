@@ -5,12 +5,22 @@
 // ── AUTH SYSTEM ─────────────────────────────────────────────────
 var LS_KEY_USERS   = 'warungku_users_v1';
 var LS_KEY_SESSION = 'warungku_session_v1';
+var LS_KEY_TARGET  = 'warungku_target_v1';
 
 function getUsers(){ try{ return JSON.parse(localStorage.getItem(LS_KEY_USERS)||'[]'); }catch(e){return[];} }
 function saveUsers(u){ localStorage.setItem(LS_KEY_USERS, JSON.stringify(u)); }
 function getSession(){ try{ return JSON.parse(localStorage.getItem(LS_KEY_SESSION)||'null'); }catch(e){return null;} }
 function saveSession(s){ localStorage.setItem(LS_KEY_SESSION, JSON.stringify(s)); }
 function clearSession(){ localStorage.removeItem(LS_KEY_SESSION); }
+
+// ── TARGET BULANAN ───────────────────────────────────────────────
+function getTarget(){ try{ var v=localStorage.getItem(LS_KEY_TARGET); return v?parseInt(v):5000000; }catch(e){return 5000000;} }
+function saveTarget(n){ localStorage.setItem(LS_KEY_TARGET, String(parseInt(n)||5000000)); }
+function fmtTargetLabel(n){
+  if(n>=1000000){ var jt=n/1000000; return jt===Math.floor(jt)?jt+'Jt':(jt.toFixed(1).replace('.0',''))+'Jt'; }
+  if(n>=1000){ return Math.round(n/1000)+'rb'; }
+  return n.toString();
+}
 
 // Validasi: apakah sudah login?
 function isLoggedIn(){ return !!getSession(); }
@@ -316,8 +326,10 @@ function renderPengaturan(){
   var warung = s ? s.warung : DB.profile.warung;
   var el1 = document.getElementById("set-username");
   var el2 = document.getElementById("set-warung");
+  var el3 = document.getElementById("set-target");
   if(el1) el1.value = nama;
   if(el2) el2.value = warung;
+  if(el3) el3.value = getTarget();
 }
 
 function showSel(id){ if(id!==undefined) DB.selectedId=id; document.getElementById('sel-overlay').classList.add('show'); }
@@ -362,11 +374,11 @@ function renderHome(){
   if(revEl) revEl.textContent = 'Rp '+rk.totalMinggu.toLocaleString('id-ID');
   if(metaEl) metaEl.textContent = 'Minggu Ini · '+rk.hariAktif+' hari aktif';
 
-  // Progress vs target (target default 5 juta)
-  var target = 5000000;
+  // Progress vs target (target dari pengaturan)
+  var target = getTarget();
   var pct = Math.min(100, Math.round(rk.totalMinggu/target*100));
   if(progEl) progEl.style.width=pct+'%';
-  if(progLbl) progLbl.textContent='Target Rp 5Jt: '+pct+'% Tercapai';
+  if(progLbl) progLbl.textContent='Target Rp '+fmtTargetLabel(target)+'/bln: '+pct+'% Tercapai';
 
   // Mini bar chart mingguan di home
   var barsEl=document.getElementById('home-weekly-bars');
@@ -454,9 +466,9 @@ function renderLaporan(){
   var progLblEl=document.getElementById('lap-prog-lbl');
   if(totalEl) totalEl.textContent='Rp '+rk.totalMinggu.toLocaleString('id-ID');
   if(lblEl) lblEl.textContent='Total pendapatan 7 hari terakhir · '+rk.hariAktif+' hari aktif';
-  var target=5000000, pct=Math.min(100,Math.round(rk.totalMinggu/target*100));
+  var target=getTarget(), pct=Math.min(100,Math.round(rk.totalMinggu/target*100));
   if(progEl) progEl.style.width=pct+'%';
-  if(progLblEl) progLblEl.textContent='Target Rp 5Jt: '+pct+'% Tercapai';
+  if(progLblEl) progLblEl.textContent='Target Rp '+fmtTargetLabel(target)+'/bln: '+pct+'% Tercapai';
 
   // Stat 3-kolom
   var statHari=document.getElementById('lap-stat-hari');
@@ -1291,6 +1303,14 @@ function simpanGantiNama(){
   var s=getSession(); if(s){ s.nama=val; saveSession(s); }
   saveToLocalStorage();
   showToastWK('✅ Nama pengguna diperbarui'); go('pg-pengaturan');
+}
+
+function simpanTarget(){
+  var val=parseInt((document.getElementById('set-target')||{value:''}).value)||0;
+  if(val<100000){ showToastWK('⚠️ Target minimal Rp 100.000','warn'); return; }
+  saveTarget(val);
+  showToastWK('✅ Target bulanan disimpan');
+  renderHome();
 }
 
 // ── SCANNER ─────────────────────────────────────────────────────
