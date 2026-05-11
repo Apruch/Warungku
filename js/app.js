@@ -2,6 +2,120 @@
 // app.js — UI logic, render functions, navigation
 // ═══════════════════════════════════════════════════════════════
 
+// ── PAGE HISTORY STACK ──────────────────────────────────────────
+// Halaman-halaman yang TIDAK masuk history (tidak bisa di-swipe back)
+var NO_HISTORY_PAGES = ['pg-splash','pg-login','pg-signup','pg-data-pengguna',
+  'pg-login-sukses','pg-daftar-sukses','pg-home','pg-katalog','pg-laporan',
+  'pg-mitra','pg-scanner'];
+
+var _pageHistory = [];
+
+function goBack(){
+  if(_pageHistory.length > 1){
+    _pageHistory.pop(); // buang halaman sekarang
+    var prev = _pageHistory[_pageHistory.length - 1];
+    _pageHistory.pop(); // go() akan push lagi
+    go(prev);
+  }
+}
+
+// ── SWIPE DOWN TO DISMISS ───────────────────────────────────────
+// Halaman yang punya white card bisa di-swipe ke bawah untuk kembali
+var SWIPEABLE_SELECTORS = [
+  '.form-card',    // barang-masuk, barang-keluar, tambah-barang, tambah-mitra, edit-mitra, data-pengguna, login, signup, lupa-sandi
+  '.set-page',     // pengaturan
+  '.gn-page',      // ganti-nama, ganti-warung
+  '.auth-card',    // login / signup (fallback)
+  '.filters-page'  // filters
+];
+
+function initSwipeDownToDismiss(pageEl){
+  var cardEl = null;
+  for(var i=0;i<SWIPEABLE_SELECTORS.length;i++){
+    cardEl = pageEl.querySelector(SWIPEABLE_SELECTORS[i]);
+    if(cardEl) break;
+  }
+  if(!cardEl) return;
+
+  var startY = 0;
+  var currentY = 0;
+  var isDragging = false;
+  var DISMISS_THRESHOLD = 140; // px ke bawah untuk dismiss
+  var startTransform = '';
+
+  function onTouchStart(e){
+    // Hanya mulai drag jika touch di area atas card (handle area)
+    var touch = e.touches[0];
+    var rect = cardEl.getBoundingClientRect();
+    // Cek apakah ada konten yang bisa di-scroll di dalam card
+    var scrollable = cardEl.scrollHeight > cardEl.clientHeight + 2;
+    if(scrollable && cardEl.scrollTop > 5) return; // sedang scroll isi, jangan drag
+
+    startY = touch.clientY;
+    isDragging = true;
+    cardEl.style.transition = 'none';
+  }
+
+  function onTouchMove(e){
+    if(!isDragging) return;
+    var touch = e.touches[0];
+    currentY = touch.clientY - startY;
+    if(currentY < 0){ currentY = 0; return; } // jangan geser ke atas
+
+    // Efek resistance: makin bawah makin berat
+    var resistance = Math.pow(currentY, 0.85);
+    cardEl.style.transform = 'translateY(' + resistance + 'px)';
+    // Fade overlay background sesuai progress
+    var pct = Math.min(currentY / DISMISS_THRESHOLD, 1);
+    pageEl.style.backgroundColor = 'rgba(0,0,0,' + (0.18 * (1 - pct*0.7)) + ')';
+  }
+
+  function onTouchEnd(e){
+    if(!isDragging) return;
+    isDragging = false;
+    cardEl.style.transition = 'transform 0.35s cubic-bezier(0.32,0.72,0,1)';
+
+    if(currentY >= DISMISS_THRESHOLD){
+      // Dismiss: slide card keluar layar lalu goBack
+      cardEl.style.transform = 'translateY(110%)';
+      pageEl.style.transition = 'opacity 0.3s';
+      pageEl.style.opacity = '0';
+      setTimeout(function(){
+        cardEl.style.transform = '';
+        cardEl.style.transition = '';
+        pageEl.style.opacity = '';
+        pageEl.style.transition = '';
+        pageEl.style.backgroundColor = '';
+        goBack();
+      }, 340);
+    } else {
+      // Snap back
+      cardEl.style.transform = 'translateY(0)';
+      setTimeout(function(){ cardEl.style.transition = ''; pageEl.style.backgroundColor = ''; }, 360);
+    }
+    currentY = 0;
+  }
+
+  // Tambah drag handle visual di atas card
+  if(!cardEl.querySelector('.swipe-handle')){
+    var handle = document.createElement('div');
+    handle.className = 'swipe-handle';
+    cardEl.insertBefore(handle, cardEl.firstChild);
+  }
+
+  cardEl.addEventListener('touchstart', onTouchStart, {passive:true});
+  cardEl.addEventListener('touchmove', onTouchMove, {passive:false});
+  cardEl.addEventListener('touchend', onTouchEnd, {passive:true});
+}
+
+function initAllSwipePages(){
+  document.querySelectorAll('.page').forEach(function(pageEl){
+    var pageId = pageEl.id;
+    if(NO_HISTORY_PAGES.indexOf(pageId) !== -1) return;
+    initSwipeDownToDismiss(pageEl);
+  });
+}
+
 // ── AUTH SYSTEM ─────────────────────────────────────────────────
 var LS_KEY_USERS   = 'warungku_users_v1';
 var LS_KEY_SESSION = 'warungku_session_v1';
@@ -285,6 +399,14 @@ function lupaSandiSelesai(){
 
 // ── Navigation ─────────────────────────────────────────────────
 function go(pageId){
+  // Push ke history stack (kecuali halaman sistem)
+  if(NO_HISTORY_PAGES.indexOf(pageId) === -1){
+    _pageHistory.push(pageId);
+    if(_pageHistory.length > 20) _pageHistory.shift(); // batas stack
+  } else {
+    _pageHistory = []; // reset history saat ke halaman utama
+  }
+
   document.querySelectorAll('.page').forEach(function(p){
     p.classList.remove('active');
     var ps = p.querySelector('.page-scroll');
@@ -298,6 +420,16 @@ function go(pageId){
     if(ps) ps.scrollTop = 0;
     t.scrollTop = 0;
     requestAnimationFrame(function(){ window.scrollTo(0,0); });
+    // Animasi slide-up untuk halaman dengan white card
+    if(NO_HISTORY_PAGES.indexOf(pageId) === -1){
+      var hasCard = SWIPEABLE_SELECTORS.some(function(sel){ return t.querySelector(sel); });
+      if(hasCard){
+        t.classList.remove('slide-in');
+        void t.offsetWidth; // reflow
+        t.classList.add('slide-in');
+        setTimeout(function(){ t.classList.remove('slide-in'); }, 400);
+      }
+    }
   }
   if(pageId==='pg-home')          renderHome();
   if(pageId==='pg-katalog')       renderKatalog();
@@ -1491,6 +1623,7 @@ function tutupScanResult(){
 // ── APP INIT ────────────────────────────────────────────────────
 function appInit(){
   loadFromLocalStorage();
+  initAllSwipePages(); // aktifkan swipe-down-to-dismiss
   initSQLite(function(){
     if(sqlDB){
       DB.barang.forEach(function(b){
