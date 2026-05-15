@@ -361,7 +361,7 @@ input.inp:focus{outline:2px solid var(--blue);}
 .mutasi-minus,.mutasi-red{color:var(--red);font-size:13px;font-weight:700;}
 
 /* ── PROFIL MITRA ── */
-.pm-body{background:var(--gray-bg);border-radius:22px 22px 0 0;margin-top:-12px;padding:18px 16px 24px;}
+.pm-body{background:var(--gray-bg);border-radius:22px 22px 0 0;margin-top:-12px;padding:18px 16px 48px;min-height:calc(100vh - 80px);}
 .pm-mitra-card{background:#fff;border-radius:18px;overflow:hidden;margin-bottom:16px;}
 .pm-card-top{background:var(--green);padding:16px 18px;}
 .pm-agent-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
@@ -424,7 +424,7 @@ input.inp:focus{outline:2px solid var(--blue);}
 .tt-btn-simpan{background:var(--blue-dark);color:#fff;border:none;border-radius:14px;padding:16px;width:100%;font-family:'Poppins',sans-serif;font-size:15px;font-weight:700;cursor:pointer;}
 
 /* ── OVERLAYS ── */
-.sel-overlay,.bar-plus-overlay{position:absolute;bottom:0;left:0;width:100%;background:rgba(0,0,0,.45);top:0;z-index:300;display:none;align-items:flex-end;padding:16px;}
+.sel-overlay,.bar-plus-overlay{position:absolute;bottom:0;left:0;width:100%;background:rgba(0,0,0,.45);top:0;z-index:1000;display:none;align-items:flex-end;padding:16px;}
 .sel-overlay.show,.bar-plus-overlay.show{display:flex;}
 .sel-box,.bar-plus-box{background:transparent;width:100%;display:flex;flex-direction:column;gap:10px;}
 .sel-box{padding-bottom:120px;}
